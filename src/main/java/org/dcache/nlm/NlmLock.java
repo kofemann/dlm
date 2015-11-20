@@ -86,6 +86,8 @@ public class NlmLock {
     }
 
     public boolean isConflicting(NlmLock other) {
-        return !Arrays.equals(holder, other.holder)  && other.offset < offset + length;
+        return ((other.offset >= offset && other.offset < offset + length)  ||
+               (offset >= other.offset && offset < other.offset + other.length) ) &&
+                !Arrays.equals(holder, other.holder);
     }
 }
