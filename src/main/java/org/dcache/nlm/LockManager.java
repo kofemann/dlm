@@ -23,7 +23,33 @@ package org.dcache.nlm;
  */
 public interface LockManager {
 
+    /**
+     * Lock byte range of an {@code objId}.
+     * @param objId object to lock.
+     * @param lock lock definition.
+     * @throws LockDeniedException if a conflicting lock is detected.
+     * @throws LockException if locking fails.
+     */
     void lock(byte[] objId, NlmLock lock) throws LockException;
+
+    /**
+     * Unlock byte range of an {@code objId}.
+     *
+     * @param objId object to unlock.
+     * @param lock lock definition.
+     * @throws LockRangeUnavailabeException if no matching lock found.
+     * @throws LockException if locking fails.
+     */
     void unlock(byte[] objId, NlmLock lock) throws LockException;
+
+    /**
+     * Test byte range lock existence  for an {@code objId}. Same as {@link #lock},
+     * except that a new lock is not created.
+     *
+     * @param objId object to lock.
+     * @param lock lock definition.
+     * @throws LockDeniedException if a conflicting lock is detected.
+     * @throws LockException if locking fails.
+     */
     void test(byte[] objId, NlmLock lock) throws LockException;
 }
