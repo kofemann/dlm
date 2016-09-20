@@ -13,7 +13,7 @@ licensed under [LGPLv2](http://www.gnu.org/licenses/lgpl-2.0.txt "LGPLv2") (or l
 How to contribute
 =================
 
-**oncrpc4j** uses the linux kernel model of using git not only a source
+**dlm** uses the linux kernel model of using git not only a source
 repository, but also as a way to track contributions and copyrights.
 
 Each submitted patch must have a "Signed-off-by" line.  Patches without
