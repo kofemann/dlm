@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Deutsches Elektronen-Synchroton,
+ * Copyright (c) 2015 - 2017 Deutsches Elektronen-Synchroton,
  * Member of the Helmholtz Association, (DESY), HAMBURG, GERMANY
  *
  * This library is free software; you can redistribute it and/or modify
@@ -37,8 +37,8 @@ import org.dcache.nlm.LockDeniedException;
 import org.dcache.nlm.LockRangeUnavailabeException;
 
 import static org.apache.curator.utils.ZKPaths.makePath;
-import static com.google.common.base.Throwables.propagateIfPossible;
-import static com.google.common.base.Throwables.propagateIfInstanceOf;
+import static com.google.common.base.Throwables.throwIfInstanceOf;
+import static com.google.common.base.Throwables.throwIfUnchecked;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -96,14 +96,14 @@ public class NlmInZoo implements LockManager {
                     .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
                     .forPath(makePath(nodePath, LOCK_PREFIX), gson.toJson(lock).getBytes(UTF_8));
         } catch (Exception e) {
-            propagateIfPossible(e);
-            propagateIfInstanceOf(e, LockException.class);
+            throwIfUnchecked(e);
+            throwIfInstanceOf(e, LockException.class);
             throw new LockException("ZK Exception", e);
         } finally {
             try {
                 zkLock.release();
             } catch (Exception e) {
-                propagateIfPossible(e);
+                throwIfUnchecked(e);
                 throw new LockException("failes to release ZK lock", e);
             }
         }
@@ -137,14 +137,14 @@ public class NlmInZoo implements LockManager {
             }
 
         } catch (Exception e) {
-            propagateIfPossible(e);
-            propagateIfInstanceOf(e, LockException.class);
+            throwIfUnchecked(e);
+            throwIfInstanceOf(e, LockException.class);
             throw new LockException("ZK Exception", e);
         } finally {
             try {
                 zkLock.release();
             } catch (Exception e) {
-                propagateIfPossible(e);
+                throwIfUnchecked(e);
                 throw new LockException("failes to release ZK lock", e);
             }
         }
@@ -178,14 +178,14 @@ public class NlmInZoo implements LockManager {
             }
 
         } catch (Exception e) {
-            propagateIfPossible(e);
-            propagateIfInstanceOf(e, LockException.class);
+            throwIfUnchecked(e);
+            throwIfInstanceOf(e, LockException.class);
             throw new LockException("ZK Exception", e);
         } finally {
             try {
                 zkLock.release();
             } catch (Exception e) {
-                propagateIfPossible(e);
+                throwIfUnchecked(e);
                 throw new LockException("failes to release ZK lock", e);
             }
         }
